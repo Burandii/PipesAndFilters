@@ -9,6 +9,6 @@ namespace PipesAndFilters.Models
     {
         public string UserInput { get; set; }
         public string OrderedWords { get; set; }
-        public string ShiftedWords { get; set; }
+        public List<string> ShiftedWords { get; set; }
     }
 }

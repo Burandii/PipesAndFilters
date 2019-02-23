@@ -6,8 +6,7 @@
 <div>
     <br />
     <form asp-controller="Home" asp-action="GetStrings" method="post">
-        <textarea rows="4" cols="50" name="input">
-        </textarea>
+        <textarea rows="4" cols="50" name="input"></textarea>
         <br/>
         <input type="submit" value="Submit"/>
     </form>
@@ -30,8 +29,7 @@
         <div>
             @if (Model.ShiftedWords != null)
             {
-                var list = Model.ShiftedWords.Split(',');
-                foreach (var s in list)
+                foreach (var s in Model.ShiftedWords)
                 {
                     @Html.Raw(s);
                     <br/>
