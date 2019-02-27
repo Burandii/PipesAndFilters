@@ -11,11 +11,11 @@ namespace PipesAndFilters.DataManagers
     public class StringResultViewDataManager
     {
         private readonly List<string> _input;
-        private readonly string _userInput;
+        private readonly string _rawInputString;
 
         public StringResultViewDataManager(string input)
         {
-            _userInput = input;
+            _rawInputString = input;
             _input = new List<string>(input.Split(
                 new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None)); 
         }
@@ -23,12 +23,12 @@ namespace PipesAndFilters.DataManagers
 
         public StringResultViewModel GetFilteredStringViewModel()
         {
-            if (_userInput.Length <= 0)
+            if (_rawInputString.Length <= 0)
             {
                 return new StringResultViewModel();
             }
 
-            if (_userInput.Length == 1)
+            if (_rawInputString.Length == 1)
             {
                 return new StringResultViewModel
                 {

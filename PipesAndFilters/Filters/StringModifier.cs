@@ -30,7 +30,7 @@ namespace PipesAndFilters.Filters
             return allShifted;
         }
 
-        public static string AlphabetizeSingleString(string input)
+        private static string AlphabetizeSingleString(string input)
         {
             var words = input.Split(null);
             var result = new List<string>();
