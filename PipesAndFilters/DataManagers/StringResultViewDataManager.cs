@@ -10,47 +10,63 @@ namespace PipesAndFilters.DataManagers
 {
     public class StringResultViewDataManager
     {
-        private readonly string _input;
+        private readonly List<string> _input;
+        private readonly string _userInput;
 
         public StringResultViewDataManager(string input)
         {
-            _input = input;
+            _userInput = input;
+            _input = new List<string>(input.Split(
+                new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None)); 
         }
+
 
         public StringResultViewModel GetFilteredStringViewModel()
         {
-            if (_input.Length < 0)
+            if (_userInput.Length <= 0)
             {
                 return new StringResultViewModel();
             }
 
-            if (_input.Length == 1)
+            if (_userInput.Length == 1)
             {
                 return new StringResultViewModel
                 {
                     UserInput = _input,
-                    OrderedWords = _input,
-                    ShiftedWords = new List<string> { _input }
+                    EachWordSet = new List<List<string>>
+                    {
+                        _input
+                    },
+                    CombinedWords = _input
                 };
-            }
-
-            var orderedWords = StringModifier.OrderWords(_input);
-            var shiftedWords = new List<string>
-            {
-                StringModifier.ShiftWordsSingle(orderedWords)
-            };
-            var orderedWordsCount = orderedWords.Split(null).Length;
-            for (int i = 1; i < orderedWordsCount; i++)
-            {
-                shiftedWords.Add(StringModifier.ShiftWordsSingle(shiftedWords[i - 1]));
             }
 
             return new StringResultViewModel
             {
+                EachWordSet = FilterEveryWordSet(),
                 UserInput = _input,
-                OrderedWords = orderedWords,
-                ShiftedWords = shiftedWords
+                CombinedWords = FilterCombinedWordSet()
             };
         }
+
+        private List<List<string>> FilterEveryWordSet()
+        {
+            var eachWordSetOutput = new List<List<string>>();
+
+            foreach (var s in _input)
+            {
+                var circularlyShiftedSingle = StringModifier.Alphabetize(new List<string> { s });
+                eachWordSetOutput.Add(StringModifier.CircularlyShift(circularlyShiftedSingle));
+            }
+
+            return eachWordSetOutput;
+        }
+
+        private List<string> FilterCombinedWordSet()
+        {
+            var circularlyShifted = StringModifier.Alphabetize(_input);
+            return StringModifier.CircularlyShift(circularlyShifted);
+        }
+
     }
 }

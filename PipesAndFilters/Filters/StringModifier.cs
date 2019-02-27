@@ -1,20 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace PipesAndFilters.Filters
 {
     public class StringModifier
     {
-
-        public static string OrderWords(string input)
+        public static List<string> Alphabetize(List<string> input)
         {
-            var words = input.Split(null);
-            var sorted = words.OrderBy(n => n);
-
-            return string.Join(' ', sorted.ToArray());
+            return input.OrderBy(n => n).ToList();
         }
 
-        public static string ShiftWordsSingle(string input)
+        public static List<string> CircularlyShift(List<string> input)
+        {
+            var allShifted = new List<string>();
+            foreach (var wordSet in input) // "all the cool cats", "what must be done"
+            {
+                var wordCount = wordSet.Split(null).Length;
+                var currentShift = wordSet;
+                allShifted.Add(currentShift);
+                for (int i = 1; i < wordCount; i++)
+                {
+                    currentShift = AlphabetizeSingleString(currentShift);
+                    allShifted.Add(currentShift.Trim());
+                }
+            }
+
+            return allShifted;
+        }
+
+        public static string AlphabetizeSingleString(string input)
         {
             var words = input.Split(null);
             var result = new List<string>();
@@ -25,24 +41,6 @@ namespace PipesAndFilters.Filters
             result.Add(words[0]);
 
             return string.Join(' ', result.ToArray());
-        }
-
-        public static List<string> ShiftWordsIntoList(string input)
-        {
-            var words = input.Split(null);
-
-            var wordSets = new List<string>();
-            for (int i = 0; i < words.Length; i++)
-            {
-                var s = "";
-                for (int k = i; k < words.Length + i; k++)
-                {
-                    s += words[k % words.Length] + " ";
-                }
-                wordSets.Add(s.Trim());
-            }
-
-            return wordSets;
         }
     }
 }

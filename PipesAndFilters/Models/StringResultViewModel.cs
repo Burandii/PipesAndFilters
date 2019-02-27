@@ -7,8 +7,8 @@ namespace PipesAndFilters.Models
 {
     public class StringResultViewModel
     {
-        public string UserInput { get; set; }
-        public string OrderedWords { get; set; }
-        public List<string> ShiftedWords { get; set; }
+        public List<string> UserInput { get; set; }
+        public List<List<string>> EachWordSet { get; set; }
+        public List<string> CombinedWords { get; set; }
     }
 }

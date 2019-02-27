@@ -15,21 +15,33 @@
         <div>
             @if (Model.UserInput != null)
             {
-                @Model.UserInput
+                foreach (var s in Model.UserInput)
+                {
+                    @Html.Raw(s);
+                    <br/>
+                }
             }
         </div>
         <br/>
         <div>
-            @if(Model.OrderedWords != null){
-                @Model.OrderedWords
+            @if(Model.EachWordSet != null){
+                foreach (var wordSetList in Model.EachWordSet)
+                {
+                    foreach (var s in wordSetList)
+                    {
+                        @Html.Raw(s);
+                        <br/>
+                    }
+                    <br/>
+                }
             }
 
         </div>
         <br/>
         <div>
-            @if (Model.ShiftedWords != null)
+            @if (Model.CombinedWords != null)
             {
-                foreach (var s in Model.ShiftedWords)
+                foreach (var s in Model.CombinedWords)
                 {
                     @Html.Raw(s);
                     <br/>
