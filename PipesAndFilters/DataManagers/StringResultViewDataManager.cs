@@ -55,8 +55,8 @@ namespace PipesAndFilters.DataManagers
 
             foreach (var s in _input)
             {
-                var circularlyShiftedSingle = StringModifier.Alphabetize(new List<string> { s });
-                eachWordSetOutput.Add(StringModifier.CircularlyShift(circularlyShiftedSingle));
+                var circularlyShiftedSingle = StringModifier.CircularlyShift(new List<string> { s });
+                eachWordSetOutput.Add(StringModifier.Alphabetize(circularlyShiftedSingle));
             }
 
             return eachWordSetOutput;
@@ -64,8 +64,8 @@ namespace PipesAndFilters.DataManagers
 
         private List<string> FilterCombinedWordSet()
         {
-            var circularlyShifted = StringModifier.Alphabetize(_input);
-            return StringModifier.CircularlyShift(circularlyShifted);
+            var circularlyShifted = StringModifier.CircularlyShift(_input);
+            return StringModifier.Alphabetize(circularlyShifted);
         }
 
     }
